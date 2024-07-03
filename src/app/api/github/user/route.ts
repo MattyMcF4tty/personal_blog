@@ -3,14 +3,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 /* Fetch user data */
 export async function GET(req: NextRequest) {
-  const response = await fetch(
-    `https://api.github.com/users/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_API_KEY}`,
-      },
-    }
-  );
+  const response = await fetch(`https://api.github.com/users/${process.env.GITHUB_USERNAME}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
+    },
+  });
   const responseData = await response.json();
 
   const user: GitHubUser = {

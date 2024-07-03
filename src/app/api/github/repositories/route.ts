@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from 'next/server';
 /* Fetch repositories in order of latest update*/
 export async function GET(req: NextRequest) {
   const response = await fetch(
-    `https://api.github.com/users/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}/repos?sort=updated&direction=desc`,
+    `https://api.github.com/users/${process.env.GITHUB_USERNAME}/repos?sort=updated&direction=desc`,
     {
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_API_KEY}`,
+        Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
       },
     }
   );
