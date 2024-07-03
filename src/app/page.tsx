@@ -7,7 +7,6 @@ import Link from 'next/link';
 const Home: NextPage = async () => {
   const repos = await fetchUserRepos();
 
-  console.log(repos);
   return (
     <main>
       <OverviewBox className="bg-gradient-to-tr from-blue-950 to-blue-500"></OverviewBox>

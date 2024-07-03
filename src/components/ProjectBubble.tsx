@@ -8,7 +8,7 @@ interface ProjectBubbleProps {
 
 const ProjectBubble: React.FC<ProjectBubbleProps> = ({ repo }) => {
   return (
-    <div className="w-full h-full bg-gradient-to-tr from-blue-950 to-blue-500 rounded-2xl p-8 hover:scale-105 duration-150 shadow-xl">
+    <div className="w-full h-full bg-gradient-to-tr from-blue-950 to-blue-500 rounded-2xl p-8 duration-150 shadow-xl">
       <div className="h-full w-full relative flex flex-col">
         <h1 className="text-xl mb-4 select-none hover:cursor-pointer text-white">{repo.name}</h1>
         <span className="select-none text-white">{repo.description}</span>

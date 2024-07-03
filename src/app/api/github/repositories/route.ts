@@ -24,7 +24,6 @@ export async function GET(req: NextRequest) {
       createdAt: new Date(repo.created_at),
     };
   });
-  console.log(repositories);
 
   return NextResponse.json({ data: repositories });
 }

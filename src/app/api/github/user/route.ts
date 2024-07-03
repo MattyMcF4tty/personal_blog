@@ -19,7 +19,5 @@ export async function GET(req: NextRequest) {
     profileImage: responseData.avatar_urlm,
   };
 
-  console.log(user);
-
   return NextResponse.json({ data: user });
 }
