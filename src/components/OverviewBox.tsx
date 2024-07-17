@@ -11,5 +11,6 @@ const OverviewBox = forwardRef<HTMLDivElement, OverviewBoxProps>((props, ref) =>
     </div>
   );
 });
+OverviewBox.displayName = 'OverviewBox';
 
 export default OverviewBox;

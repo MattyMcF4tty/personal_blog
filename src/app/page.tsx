@@ -9,7 +9,10 @@ const Home: NextPage = async () => {
 
   return (
     <main>
-      <OverviewBox className="bg-gradient-to-tr from-blue-950 to-blue-500"></OverviewBox>
+      <OverviewBox className="bg-gradient-to-tr from-blue-950 to-blue-500">
+        <h1 className="font-bold text-white text-5xl">Hi</h1>
+        <h1 className="font-bold text-white text-5xl">I&apos;m Matthias</h1>
+      </OverviewBox>
       <OverviewBox className="bg-white flex flex-col items-center">
         <h1 className="text-black text-[62px] mb-2 select-none w-full">Latest projects</h1>
         <div className="grid grid-rows-2 grid-cols-2 gap-8 h-[calc(100%-6rem)] w-full">

@@ -25,5 +25,6 @@ export const fetchUserRepos = async () => {
   }
 
   const repos = await response.json();
+
   return repos.data as RepositorySchema[];
 };

@@ -3,6 +3,6 @@ export default interface RepositorySchema {
   name: string;
   description: string | null;
   url: string;
-  lastUpdate: Date;
-  createdAt: Date;
+  lastUpdate: string;
+  createdAt: string;
 }

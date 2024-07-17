@@ -10,8 +10,8 @@ const ProjectBubble: React.FC<ProjectBubbleProps> = ({ repo }) => {
   return (
     <div className="w-full h-full bg-gradient-to-tr from-blue-950 to-blue-500 rounded-2xl p-8 duration-150 shadow-xl">
       <div className="h-full w-full relative flex flex-col">
-        <h1 className="text-xl mb-4 select-none hover:cursor-pointer text-white">{repo.name}</h1>
-        <span className="select-none text-white">{repo.description}</span>
+        <h1 className="text-xl select-none hover:cursor-pointer text-white">{repo.name}</h1>
+        <span className="select-none mt-4 text-white">{repo.description}</span>
 
         <div className="absolute bottom-0 flex flex-row justify-evenly w-full h-10 select-none">
           <Link
