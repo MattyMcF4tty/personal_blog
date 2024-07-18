@@ -14,7 +14,7 @@ const copyTextToClipboard = (text: string) => {
  * @param delay How long the promise should take before resolving
  * @returns Nothing
  */
-const falsePromise = (delay: number) => {
+export const falsePromise = (delay: number) => {
   const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve('Done!');

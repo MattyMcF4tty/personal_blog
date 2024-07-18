@@ -20,8 +20,8 @@ export async function GET(req: NextRequest) {
       name: repo.name,
       description: repo.description,
       url: repo.html_url,
-      lastUpdate: new Date(repo.updated_at),
-      createdAt: new Date(repo.created_at),
+      lastUpdate: repo.updated_at,
+      createdAt: repo.created_at,
     };
   });
 

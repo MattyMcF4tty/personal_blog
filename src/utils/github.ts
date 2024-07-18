@@ -17,7 +17,7 @@ export const fetchUserData = async () => {
 export const fetchUserRepos = async () => {
   const response = await fetch(`http://localhost:3000/api/github/repositories`, {
     method: 'GET',
-    next: { revalidate: 86400 }, // Revalidates every day
+    next: { revalidate: 3600 }, // Revalidates every hour
   });
 
   if (!response.ok) {
@@ -27,4 +27,19 @@ export const fetchUserRepos = async () => {
   const repos = await response.json();
 
   return repos.data as RepositorySchema[];
+};
+
+export const fetchRepo = async (repoName: string) => {
+  const response = await fetch(`http://localhost:3000/api/github/repositories/${repoName}`, {
+    method: 'GET',
+    next: { revalidate: 3600 }, // Revalidates every hour
+  });
+
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+
+  const repos = await response.json();
+
+  return repos.data as RepositorySchema;
 };

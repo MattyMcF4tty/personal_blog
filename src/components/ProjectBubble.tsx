@@ -15,7 +15,7 @@ const ProjectBubble: React.FC<ProjectBubbleProps> = ({ repo }) => {
 
         <div className="absolute bottom-0 flex flex-row justify-evenly w-full h-10 select-none">
           <Link
-            href={`repositories/${repo.id}`}
+            href={`repositories/${repo.name}`}
             className="text-black bg-white w-1/4 rounded-md flex text-center justify-center items-center"
           >
             Read more
