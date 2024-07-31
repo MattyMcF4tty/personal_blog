@@ -13,15 +13,18 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
     `https://api.github.com/repos/${process.env.GITHUB_USERNAME}/${repoName}`,
     {
       method: 'GET',
+      cache: 'no-store',
     }
   );
   const readMeResponse = await fetch(
     `https://api.github.com/repos/${process.env.GITHUB_USERNAME}/${repoName}/readme`,
     {
       method: 'GET',
+
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
       },
+      cache: 'no-store',
     }
   );
 

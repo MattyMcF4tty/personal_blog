@@ -42,7 +42,5 @@ export const fetchRepo = async (repoName: string) => {
 
   const repos = await response.json();
 
-  console.log(repos.data);
-
   return repos.data as RepositorySchema;
 };

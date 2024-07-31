@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
       },
+      cache: 'no-store',
     }
   );
 
