@@ -2,6 +2,7 @@ import OverviewBox from '@/components/OverviewBox';
 import ProjectBubble from '@/components/ProjectBubble';
 import { fetchUserRepos } from '@/utils/github';
 import { NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const Home: NextPage = async () => {
@@ -9,11 +10,25 @@ const Home: NextPage = async () => {
 
   return (
     <main>
-      <OverviewBox className="bg-gradient-to-tr from-blue-950 to-blue-500">
-        <h1 className="font-bold text-white text-5xl">Hi</h1>
-        <h1 className="font-bold text-white text-5xl">I&apos;m Matthias</h1>
+      <OverviewBox className="flex flex-row justify-between">
+        <div className="flex flex-col">
+          <h1 className="bg-clip-text text-transparent bg-gradient-to-tr from-blue-950 to-blue-500 font-bold text-5xl">
+            Hi
+          </h1>
+          <h1 className="bg-clip-text text-transparent bg-gradient-to-tr from-blue-950 to-blue-500 font-bold text-5xl">
+            I&apos; m Matthias
+          </h1>
+        </div>
+
+        <Image
+          alt="Portrait Image"
+          src={'/portrait.jpg'}
+          width={400}
+          height={25}
+          className="rounded-md"
+        />
       </OverviewBox>
-      <OverviewBox className="bg-white flex flex-col items-center">
+      <OverviewBox className="flex flex-col items-center bg-slate-100 shadow-inner">
         <h1 className="text-black text-[62px] mb-2 select-none w-full">Latest projects</h1>
         <div className="grid grid-rows-2 grid-cols-2 gap-8 h-[calc(100%-6rem)] w-full">
           <ProjectBubble repo={repos[0]} />

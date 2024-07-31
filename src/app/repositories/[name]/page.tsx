@@ -1,15 +1,14 @@
 import TextSection from '@/components/TextSection';
 import { fetchRepo } from '@/utils/github';
-import { falsePromise } from '@/utils/misc';
 import { NextPage } from 'next';
 
 const RepoPage: NextPage = async ({ params }: any) => {
-  const repoName = params.name;
-  const repoData = await fetchRepo(repoName);
-  const updateDate = new Date(repoData.lastUpdate);
+  const repoName = params.name; //Gets repository name from query
+  const repoData = await fetchRepo(repoName); //Fetches repository data
+  const updateDate = new Date(repoData.lastUpdate); //Formats update date to a Javascript Date
 
   return (
-    <main className="px-[20vw]">
+    <main className="px-[25vw]">
       <div className="mb-4">
         <h1 className="text-6xl">{repoData.name}</h1>
         <p className="text-sm">
@@ -19,11 +18,9 @@ const RepoPage: NextPage = async ({ params }: any) => {
       </div>
 
       <TextSection title="Description" className=" w-full border">
-        <span className="text-black">
-          Hejiusdhfgasdiufghsilghbfadgifbfhdfhgdfhsfghhsfghsfghsgfhsgh
-          Hejiusdhfgasdiufghsilghbfadgifbhhdfhgdfhsfghhsfghsfghsgfhsgh
-        </span>
+        <span className="text-black">{repoData.description}</span>
       </TextSection>
+      {repoData.readMe && <TextSection title="ReadMe">{repoData.readMe}</TextSection>}
     </main>
   );
 };

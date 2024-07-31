@@ -14,10 +14,10 @@ const TextSection = forwardRef<HTMLDivElement, TextSectionProps>((props, ref) =>
 
   return (
     <div ref={ref} className={`w-full ${className} `} {...otherProps}>
-      <button onClick={() => setHideText(!hideText)}>
+      <button onClick={() => setHideText(!hideText)} className="text-lg font-semibold">
         <FontAwesomeIcon
           icon={faChevronUp}
-          className={`${!hideText && 'rotate-180'} duration-200 text-sm`}
+          className={`${!hideText && 'rotate-180'} duration-200 text-sm mr-2`}
         />
         {title}
       </button>

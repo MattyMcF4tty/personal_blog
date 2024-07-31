@@ -22,6 +22,7 @@ export async function GET(req: NextRequest) {
       url: repo.html_url,
       lastUpdate: repo.updated_at,
       createdAt: repo.created_at,
+      readMe: null,
     };
   });
 

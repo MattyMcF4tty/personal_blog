@@ -30,6 +30,7 @@ export const fetchUserRepos = async () => {
 };
 
 export const fetchRepo = async (repoName: string) => {
+  console.log('function: ' + repoName);
   const response = await fetch(`http://localhost:3000/api/github/repositories/${repoName}`, {
     method: 'GET',
     next: { revalidate: 3600 }, // Revalidates every hour
@@ -40,6 +41,8 @@ export const fetchRepo = async (repoName: string) => {
   }
 
   const repos = await response.json();
+
+  console.log(repos.data);
 
   return repos.data as RepositorySchema;
 };

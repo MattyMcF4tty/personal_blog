@@ -5,4 +5,5 @@ export default interface RepositorySchema {
   url: string;
   lastUpdate: string;
   createdAt: string;
+  readMe: string | null;
 }
