@@ -15,6 +15,13 @@ export async function GET(req: NextRequest) {
 
   const responseData = await response.json();
 
+  if (!response.ok) {
+    return NextResponse.json(
+      { error: responseData.error },
+      { status: Number(responseData.status) }
+    );
+  }
+
   const repositories: RepositorySchema[] = responseData.map((repo: any) => {
     return {
       id: repo.id,
@@ -27,5 +34,5 @@ export async function GET(req: NextRequest) {
     };
   });
 
-  return NextResponse.json({ data: repositories });
+  return NextResponse.json({ data: repositories }, { status: 200 });
 }

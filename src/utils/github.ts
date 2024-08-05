@@ -3,7 +3,7 @@ import RepositorySchema from '@/schemas/repositorySchema';
 export const fetchUserData = async () => {
   const response = await fetch(`http://localhost:3000/api/github/user`, {
     method: 'GET',
-    next: { revalidate: 300 }, // revalidates every 5 minutes
+    next: { revalidate: 86400 }, // revalidates every 24 hours
   });
 
   if (!response.ok) {
@@ -30,7 +30,6 @@ export const fetchUserRepos = async () => {
 };
 
 export const fetchRepo = async (repoName: string) => {
-  console.log('function: ' + repoName);
   const response = await fetch(`http://localhost:3000/api/github/repositories/${repoName}`, {
     method: 'GET',
     next: { revalidate: 3600 }, // Revalidates every hour
@@ -40,7 +39,7 @@ export const fetchRepo = async (repoName: string) => {
     throw new Error('Network response was not ok');
   }
 
-  const repos = await response.json();
+  const repo = await response.json();
 
-  return repos.data as RepositorySchema;
+  return repo.data as RepositorySchema;
 };

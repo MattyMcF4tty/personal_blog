@@ -4,23 +4,27 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest, { params }: { params: { name: string } }) {
   const repoName = params.name;
 
+  /* Check if user has provided the repos name in the url query */
   if (!repoName) {
     return NextResponse.json({ error: 'Missing name in query' }, { status: 400 });
   }
 
-  /* Fetch data from github */
+  /* Fetch data from repo */
   const repoResponse = await fetch(
     `https://api.github.com/repos/${process.env.GITHUB_USERNAME}/${repoName}`,
     {
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
+      },
       cache: 'no-store',
     }
   );
+  /* Fetch readme data */
   const readMeResponse = await fetch(
     `https://api.github.com/repos/${process.env.GITHUB_USERNAME}/${repoName}/readme`,
     {
       method: 'GET',
-
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
       },
