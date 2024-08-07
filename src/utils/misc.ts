@@ -23,3 +23,12 @@ export const falsePromise = (delay: number) => {
 
   return promise;
 };
+
+/**
+ * Takes a date and checks it against the current date. To give a reable text version of how long has passed. Example: "1 week ago".
+ * @param date The date you want to convert to a better readable date
+ * @returns how long between current date and given date in text.
+ */
+export const readableDate = (date: Date) => {
+  const currentDate = new Date();
+};

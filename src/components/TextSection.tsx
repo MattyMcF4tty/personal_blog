@@ -13,15 +13,20 @@ const TextSection = forwardRef<HTMLDivElement, TextSectionProps>((props, ref) =>
   const [hideText, setHideText] = useState<boolean>(false);
 
   return (
-    <div ref={ref} className={`w-full ${className} `} {...otherProps}>
-      <button onClick={() => setHideText(!hideText)} className="text-lg font-semibold">
+    <div ref={ref} className={`${className} mt-3.5 mb-0.5`} {...otherProps}>
+      <button
+        onClick={() => setHideText(!hideText)}
+        className="text-lg font-bold select-none w-full justify-start flex items-center "
+      >
         <FontAwesomeIcon
           icon={faChevronUp}
           className={`${!hideText && 'rotate-180'} duration-200 text-sm mr-2`}
         />
         {title}
       </button>
-      <div hidden={hideText}>{children}</div>
+      <div hidden={hideText} className="text-black leading-relaxed mt-1 break-words">
+        {children}
+      </div>
     </div>
   );
 });
