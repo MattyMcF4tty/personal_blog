@@ -54,6 +54,8 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
     lastUpdate: repoData.updated_at,
     createdAt: repoData.created_at,
     readMe: decodedReadMe,
+    stars: repoData.stargazers_count,
+    watchers: repoData.watchers_count,
   };
 
   return NextResponse.json({ data: repo }, { status: 200 });

@@ -26,5 +26,6 @@ const ProjectBubble: React.FC<ProjectBubbleProps> = ({ repo }) => {
     </div>
   );
 };
+ProjectBubble.displayName = 'ProjectBubble';
 
 export default ProjectBubble;

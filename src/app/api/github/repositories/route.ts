@@ -31,6 +31,8 @@ export async function GET(req: NextRequest) {
       lastUpdate: repo.updated_at,
       createdAt: repo.created_at,
       readMe: null,
+      stars: repo.stargazers_count,
+      watchers: repo.watchers_count,
     };
   });
 

@@ -6,4 +6,6 @@ export default interface RepositorySchema {
   lastUpdate: string;
   createdAt: string;
   readMe: string | null;
+  stars: number;
+  watchers: number;
 }

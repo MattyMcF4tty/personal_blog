@@ -1,3 +1,4 @@
+import ContributorSchema from '@/schemas/contributor';
 import RepositorySchema from '@/schemas/repositorySchema';
 
 export const fetchUserData = async () => {
@@ -42,4 +43,32 @@ export const fetchRepo = async (repoName: string) => {
   const repo = await response.json();
 
   return repo.data as RepositorySchema;
+};
+
+export const fetchRepoContributors = async (repoName: string) => {
+  const response = await fetch(
+    `http://localhost:3000/api/github/repositories/${repoName}/contributors`,
+    {
+      method: 'GET',
+      next: { revalidate: 3600 }, // Revalidates every hour
+    }
+  );
+
+  const contributors = await response.json();
+
+  return contributors.data as ContributorSchema[];
+};
+
+export const fetchRepoCommits = async (repoName: string) => {
+  const response = await fetch(
+    `http://localhost:3000/api/github/repositories/${repoName}/commits`,
+    {
+      method: 'GET',
+      next: { revalidate: 1 }, // Revalidates every hour
+    }
+  );
+
+  const commits = await response.json();
+
+  return commits.data;
 };
