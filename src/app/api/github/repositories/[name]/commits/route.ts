@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
   );
 
   const responseData = await response.json();
-  console.log(responseData);
-
+  /*   console.log(responseData);
+   */
   return NextResponse.json({}, { status: 200 });
 }

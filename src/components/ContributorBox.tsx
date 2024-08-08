@@ -8,6 +8,7 @@ interface ContributorBoxProps {
 }
 
 const ContributorBox = ({ contributor }: ContributorBoxProps) => {
+  console.log(contributor);
   return (
     <Link
       href={contributor.profileUrl}
@@ -22,7 +23,7 @@ const ContributorBox = ({ contributor }: ContributorBoxProps) => {
         className="rounded-full"
       />
       <div className="ml-2 h-full w-full flex flex-col justify-center">
-        <p>{contributor.userName}</p>
+        <p>{contributor.username}</p>
         <p className="text-sm text-gray-500">Contributions: {contributor.contributions}</p>
       </div>
     </Link>
