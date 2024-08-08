@@ -1,3 +1,4 @@
+import CommitSchema from '@/schemas/commitSchema';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest, { params }: { params: { name: string } }) {
@@ -20,7 +21,28 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
   );
 
   const responseData = await response.json();
-  /*   console.log(responseData);
-   */
-  return NextResponse.json({}, { status: 200 });
+
+  const commits: CommitSchema[] = responseData.map((commitData: any) => {
+    /* Cut out title */
+    const [title, ...description] = commitData.commit.committer.message.split('\n\n');
+
+    const commit: CommitSchema = {
+      committer: {
+        avatar: commitData.committer.avatar_url,
+        id: commitData.committer.id,
+        name: null,
+        profileUrl: commitData.committer.html_url,
+        repositories: null,
+        username: commitData.committer.login,
+      },
+      date: commitData.commit.comitter.date,
+      title: title,
+      description: description,
+      url: commitData.html_url,
+    };
+
+    return commit;
+  });
+
+  return NextResponse.json({ data: commits }, { status: 200 });
 }

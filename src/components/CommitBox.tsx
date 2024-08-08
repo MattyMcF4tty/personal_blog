@@ -1,5 +1,5 @@
 import React from 'react';
-import ContributorSchema from '@/schemas/contributor';
+import ContributorSchema from '@/schemas/contributorSchema';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -22,7 +22,7 @@ const CommitBox = ({ contributor }: CommitBoxProps) => {
         className="rounded-full"
       />
       <div className="ml-2 h-full w-full flex flex-col justify-center">
-        <p>{contributor.userName}</p>
+        <p>{contributor.username}</p>
         <p className="text-sm text-gray-500">Contributions: {contributor.contributions}</p>
       </div>
     </Link>

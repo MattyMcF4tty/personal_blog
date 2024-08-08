@@ -1,4 +1,4 @@
-import ContributorSchema from '@/schemas/contributor';
+import ContributorSchema from '@/schemas/contributorSchema';
 import RepositorySchema from '@/schemas/repositorySchema';
 
 export const fetchUserData = async () => {

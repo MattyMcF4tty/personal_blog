@@ -1,5 +1,5 @@
 import React from 'react';
-import ContributorSchema from '@/schemas/contributor';
+import ContributorSchema from '@/schemas/contributorSchema';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,7 +8,6 @@ interface ContributorBoxProps {
 }
 
 const ContributorBox = ({ contributor }: ContributorBoxProps) => {
-  console.log(contributor);
   return (
     <Link
       href={contributor.profileUrl}

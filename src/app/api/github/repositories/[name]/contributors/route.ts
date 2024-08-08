@@ -1,4 +1,4 @@
-import ContributorSchema from '@/schemas/contributor';
+import ContributorSchema from '@/schemas/contributorSchema';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest, { params }: { params: { name: string } }) {
