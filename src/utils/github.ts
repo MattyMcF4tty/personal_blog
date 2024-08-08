@@ -64,7 +64,7 @@ export const fetchRepoCommits = async (repoName: string) => {
     `http://localhost:3000/api/github/repositories/${repoName}/commits`,
     {
       method: 'GET',
-      next: { revalidate: 1 }, // Revalidates every hour
+      next: { revalidate: 3600 }, // Revalidates every hour
     }
   );
 

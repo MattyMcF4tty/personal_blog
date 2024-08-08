@@ -22,18 +22,28 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const repositories: RepositorySchema[] = responseData.map((repo: any) => {
-    return {
-      id: repo.id,
-      name: repo.name,
-      description: repo.description,
-      url: repo.html_url,
-      lastUpdate: repo.updated_at,
-      createdAt: repo.created_at,
+  const repositories: RepositorySchema[] = responseData.map((repoData: any) => {
+    const repository: RepositorySchema = {
+      id: repoData.id,
+      name: repoData.name,
+      description: repoData.description,
+      url: repoData.html_url,
+      lastUpdate: repoData.updated_at,
+      createdAt: repoData.created_at,
       readMe: null,
-      stars: repo.stargazers_count,
-      watchers: repo.watchers_count,
+      stars: repoData.stargazers_count,
+      watchers: repoData.watchers_count,
+      owner: {
+        id: repoData.owner.login,
+        avatar: repoData.owner.avatar_url,
+        name: null,
+        profileUrl: repoData.owner.html_url,
+        repositories: null,
+        username: repoData.owner.login,
+      },
     };
+
+    return repository;
   });
 
   return NextResponse.json({ data: repositories }, { status: 200 });

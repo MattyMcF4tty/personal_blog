@@ -1,8 +1,8 @@
-export default interface GitHubUser {
+export default interface userSchema {
   id: number;
-  name: string;
+  name: string | null;
   username: string;
-  repositories: number;
+  repositories: number | null;
   profileUrl: string;
-  profileImage: string;
+  avatar: string;
 }

@@ -56,6 +56,14 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
     readMe: decodedReadMe,
     stars: repoData.stargazers_count,
     watchers: repoData.watchers_count,
+    owner: {
+      id: repoData.owner.login,
+      avatar: repoData.owner.avatar_url,
+      name: null,
+      profileUrl: repoData.owner.html_url,
+      repositories: null,
+      username: repoData.owner.login,
+    },
   };
 
   return NextResponse.json({ data: repo }, { status: 200 });

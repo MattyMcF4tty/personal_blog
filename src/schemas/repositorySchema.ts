@@ -1,3 +1,5 @@
+import userSchema from './userSchema';
+
 export default interface RepositorySchema {
   id: number;
   name: string;
@@ -8,4 +10,5 @@ export default interface RepositorySchema {
   readMe: string | null;
   stars: number;
   watchers: number;
+  owner: userSchema;
 }

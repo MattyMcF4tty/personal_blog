@@ -36,10 +36,12 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
   const contributorData = responseData.map((contributorData: any) => {
     const contributor: ContributorSchema = {
       id: contributorData.id,
-      userName: contributorData.login,
+      username: contributorData.login,
       contributions: contributorData.contributions,
       avatar: contributorData.avatar_url,
       profileUrl: contributorData.html_url,
+      name: null,
+      repositories: null,
     };
     return contributor;
   });
