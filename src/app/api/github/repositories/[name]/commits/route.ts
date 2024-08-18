@@ -23,10 +23,10 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
   const responseData = await response.json();
 
   const commits: CommitSchema[] = responseData.map((commitData: any) => {
-    /* Cut out title */
-    const [title, ...description] = commitData.commit.committer.message.split('\n\n');
+    const [title, ...description] = commitData.commit.message.split('\n\n'); // Seperates the message and the title from each other
 
     const commit: CommitSchema = {
+      sha: commitData.sha,
       committer: {
         avatar: commitData.committer.avatar_url,
         id: commitData.committer.id,
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
         repositories: null,
         username: commitData.committer.login,
       },
-      date: commitData.commit.comitter.date,
+      date: commitData.commit.committer.date,
       title: title,
       description: description,
       url: commitData.html_url,

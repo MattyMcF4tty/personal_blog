@@ -1,5 +1,8 @@
+import CommitSchema from '@/schemas/commitSchema';
 import ContributorSchema from '@/schemas/contributorSchema';
 import RepositorySchema from '@/schemas/repositorySchema';
+import userSchema from '@/schemas/userSchema';
+import { Console } from 'console';
 
 export const fetchUserData = async () => {
   const response = await fetch(`http://localhost:3000/api/github/user`, {
@@ -12,7 +15,7 @@ export const fetchUserData = async () => {
   }
 
   const user = await response.json();
-  return user.data;
+  return user.data as userSchema;
 };
 
 export const fetchUserRepos = async () => {
@@ -36,11 +39,11 @@ export const fetchRepo = async (repoName: string) => {
     next: { revalidate: 3600 }, // Revalidates every hour
   });
 
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-
   const repo = await response.json();
+
+  if (!response.ok) {
+    throw new Error(repo.error);
+  }
 
   return repo.data as RepositorySchema;
 };
@@ -70,5 +73,5 @@ export const fetchRepoCommits = async (repoName: string) => {
 
   const commits = await response.json();
 
-  return commits.data;
+  return commits.data as CommitSchema[];
 };

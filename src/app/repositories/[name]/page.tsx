@@ -1,3 +1,4 @@
+import CommitBox from '@/components/CommitBox';
 import ContentBox from '@/components/ContentBox';
 import ContributorBox from '@/components/ContributorBox';
 import TextSection from '@/components/TextSection';
@@ -16,7 +17,7 @@ const RepoPage: NextPage = async ({ params }: any) => {
   const commits = await fetchRepoCommits(repoName); //Fetces repository commits
 
   /* Makes date easily readable */
-  const updateDate = new Date(repoData.lastUpdate); //Formats update date to a Javascript Date
+  const updateDate = new Date(repoData.lastUpdate); //Creates a Date object from the update date.
   const readableDate = readableDateDif(updateDate); //Calculates difference between now and last update and returns in easily readable srting
 
   return (
@@ -55,26 +56,19 @@ const RepoPage: NextPage = async ({ params }: any) => {
             <span>{repoData.readMe}</span>
           </TextSection>
         )}
-        {repoData.readMe && (
-          <TextSection title="ReadMe">
-            <span>{repoData.readMe}</span>
-          </TextSection>
-        )}
-        {repoData.readMe && (
-          <TextSection title="ReadMe">
-            <span>{repoData.readMe}</span>
-          </TextSection>
-        )}
-        {repoData.readMe && (
-          <TextSection title="ReadMe">
-            <span>{repoData.readMe}</span>
-          </TextSection>
-        )}
       </ContentBox>
-      {/* Commits content box */}
 
-      <ContentBox className="col-start-3 col-span-1 max-w-xs top-20 justify-self-end sticky">
-        test
+      {/* Commits content box */}
+      <ContentBox className="col-start-3 col-span-1 max-w-xs top-20 justify-self-end sticky max-h-[calc(100vh-10rem)] overflow-y-auto">
+        <h2 className="text-2xl font-bold mb-2">Commits</h2>
+
+        {commits.map((commit) => (
+          <div key={commit.sha}>
+            <CommitBox commit={commit} />
+            {/*             <hr className="border-b border-black" />
+             */}{' '}
+          </div>
+        ))}
       </ContentBox>
     </main>
   );

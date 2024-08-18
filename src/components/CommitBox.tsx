@@ -1,29 +1,32 @@
 import React from 'react';
-import ContributorSchema from '@/schemas/contributorSchema';
-import Image from 'next/image';
 import Link from 'next/link';
+import CommitSchema from '@/schemas/commitSchema';
 
 interface CommitBoxProps {
-  contributor: ContributorSchema;
+  commit: CommitSchema;
 }
 
-const CommitBox = ({ contributor }: CommitBoxProps) => {
+const CommitBox = ({ commit }: CommitBoxProps) => {
+  // Ensure the description is always an array for consistent rendering
+  const descriptionArray = Array.isArray(commit.description)
+    ? commit.description
+    : [commit.description];
+
   return (
     <Link
-      href={contributor.profileUrl}
+      href={commit.url}
       target="_blank"
       className="flex flex-row w-full duration-200 hover:shadow-lg rounded-lg p-2 select-none hover:cursor-pointer"
     >
-      <Image
-        alt="Avatar"
-        src={contributor.avatar}
-        width={50}
-        height={50}
-        className="rounded-full"
-      />
       <div className="ml-2 h-full w-full flex flex-col justify-center">
-        <p>{contributor.username}</p>
-        <p className="text-sm text-gray-500">Contributions: {contributor.contributions}</p>
+        <h3 className="font-semibold break-words">{commit.title}</h3>
+        <div className="text-sm text-gray-500">
+          {descriptionArray.map((line, index) => (
+            <p key={index} className="mb-1">
+              {line}
+            </p>
+          ))}
+        </div>
       </div>
     </Link>
   );

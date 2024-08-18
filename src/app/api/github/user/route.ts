@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     username: responseData.login,
     repositories: responseData.public_repos,
     profileUrl: responseData.html_url,
-    profileImage: responseData.avatar_urlm,
+    avatar: responseData.avatar_urlm,
   };
 
   return NextResponse.json({ data: user });
