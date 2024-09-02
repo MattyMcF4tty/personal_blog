@@ -45,6 +45,7 @@ export const readableDateDif = (date: Date): string => {
     );
   */
 
+  //TODO: Not calculating correctly. Example: If I gives you a date where the day is one day before new month. The next day it will say "One month ago".
   /* Returns how long has passed in text, except if under one minute ago. Then returns now */
   if (yearDif >= 1) {
     return `${yearDif} year${yearDif > 1 ? 's' : ''} ago`;

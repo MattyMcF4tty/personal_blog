@@ -1,10 +1,21 @@
+import RepoQuery from '@/schemas/repoQuerySchema';
 import RepositorySchema from '@/schemas/repositorySchema';
 import { NextRequest, NextResponse } from 'next/server';
 
 /* Fetch repositories in order of latest update*/
 export async function GET(req: NextRequest) {
+  /* Gets the params from the query */
+  const searchParams = req.nextUrl.searchParams;
+  const page = parseInt(searchParams.get('page') || '1');
+  const perPage = parseInt(searchParams.get('perPage') || '10');
+  const order = (searchParams.get('order') as 'asc' | 'desc') || 'desc';
+
+  const repoQuery = new RepoQuery(page, perPage, order);
+
   const response = await fetch(
-    `https://api.github.com/users/${process.env.GITHUB_USERNAME}/repos?sort=updated&direction=desc`,
+    `https://api.github.com/users/${
+      process.env.GITHUB_USERNAME
+    }/repos?${repoQuery.toQueryString()}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
