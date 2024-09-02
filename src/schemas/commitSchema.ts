@@ -6,5 +6,5 @@ export default interface CommitSchema {
   description: string | string[];
   date: string;
   url: string;
-  committer: userSchema;
+  author: userSchema;
 }

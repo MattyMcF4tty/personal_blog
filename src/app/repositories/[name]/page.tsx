@@ -14,7 +14,7 @@ const RepoPage: NextPage = async ({ params }: any) => {
   /* Fetch nessecary data */
   const repoData = await fetchRepo(repoName); //Fetches repository data
   const contributors = await fetchRepoContributors(repoName); //Fetches repository contributors
-  const commits = await fetchRepoCommits(repoName); //Fetces repository commits
+  const commits = await fetchRepoCommits(repoName, 1, 10); //Fetces repository commits
 
   /* Makes date easily readable */
   const updateDate = new Date(repoData.lastUpdate); //Creates a Date object from the update date.

@@ -1,16 +1,24 @@
 import CommitSchema from '@/schemas/commitSchema';
+import CommitQuery from '@/schemas/queries/commitQuerySchema';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest, { params }: { params: { name: string } }) {
-  const repoName = params.name;
+export async function GET(req: NextRequest, { params }: any) {
+  /* Gets the params from the query */
+  const searchParams = req.nextUrl.searchParams;
+  const name = params.name; // As the name query comes from the nextjs dynamic route. We have to get it differently.
+  const page = parseInt(searchParams.get('page') || '1');
+  const perPage = parseInt(searchParams.get('perPage') || '10');
 
-  /* Check if user has provided the repos name in the url query */
-  if (!repoName) {
+  if (!name) {
     return NextResponse.json({ error: 'Missing name in query' }, { status: 400 });
   }
 
+  const commitQuery = new CommitQuery(name, page, perPage);
+
   const response = await fetch(
-    `https://api.github.com/repos/${process.env.GITHUB_USERNAME}/${repoName}/commits?per_page=10`,
+    `https://api.github.com/repos/${process.env.GITHUB_USERNAME}/${
+      commitQuery.name
+    }/commits?${commitQuery.toQueryString()}`,
     {
       method: 'GET',
       headers: {
@@ -22,20 +30,30 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
 
   const responseData = await response.json();
 
+  if (!response.ok) {
+    console.error('error' + responseData.error);
+  }
+
   const commits: CommitSchema[] = responseData.map((commitData: any) => {
-    const [title, ...description] = commitData.commit.message.split('\n\n'); // Seperates the message and the title from each other
+    /* 
+    Splits the message where is one or two '\n'. This is to take account for how the user creates a new line when writing the commit description. 
+    By default we know that the first '\n' is where the title is.
+    */
+    const [title, ...description] = commitData.commit.message
+      .split(/\n+/)
+      .filter((line: any) => line.trim() !== '');
 
     const commit: CommitSchema = {
       sha: commitData.sha,
-      committer: {
-        avatar: commitData.committer.avatar_url,
-        id: commitData.committer.id,
+      author: {
+        avatar: commitData.author.avatar_url,
+        id: commitData.author.id,
         name: null,
-        profileUrl: commitData.committer.html_url,
+        profileUrl: commitData.author.html_url,
         repositories: null,
-        username: commitData.committer.login,
+        username: commitData.author.login,
       },
-      date: commitData.commit.committer.date,
+      date: commitData.commit.author.date,
       title: title,
       description: description,
       url: commitData.html_url,

@@ -1,4 +1,4 @@
-import RepoQuery from '@/schemas/repoQuerySchema';
+import RepoQuery from '@/schemas/queries/repoQuerySchema';
 import RepositorySchema from '@/schemas/repositorySchema';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -9,8 +9,9 @@ export async function GET(req: NextRequest) {
   const page = parseInt(searchParams.get('page') || '1');
   const perPage = parseInt(searchParams.get('perPage') || '10');
   const order = (searchParams.get('order') as 'asc' | 'desc') || 'desc';
+  const sort = (searchParams.get('sort') as 'updated' | 'created') || 'updated';
 
-  const repoQuery = new RepoQuery(page, perPage, order);
+  const repoQuery = new RepoQuery(page, perPage, order, sort);
 
   const response = await fetch(
     `https://api.github.com/users/${
