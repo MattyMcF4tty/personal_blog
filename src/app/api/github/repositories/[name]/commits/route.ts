@@ -5,19 +5,20 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest, { params }: any) {
   /* Gets the params from the query */
   const searchParams = req.nextUrl.searchParams;
-  const name = params.name; // As the name query comes from the nextjs dynamic route. We have to get it differently.
+  const repoName = params.name; // As the name query comes from the nextjs dynamic route. We have to get it differently.
   const page = parseInt(searchParams.get('page') || '1');
   const perPage = parseInt(searchParams.get('perPage') || '10');
 
-  if (!name) {
+  /* Check if user has provided the repos name in the url query */
+  if (!repoName) {
     return NextResponse.json({ error: 'Missing name in query' }, { status: 400 });
   }
 
-  const commitQuery = new CommitQuery(name, page, perPage);
+  const commitQuery = new CommitQuery(repoName, page, perPage);
 
   const response = await fetch(
     `https://api.github.com/repos/${process.env.GITHUB_USERNAME}/${
-      commitQuery.name
+      commitQuery.repoName
     }/commits?${commitQuery.toQueryString()}`,
     {
       method: 'GET',

@@ -68,9 +68,20 @@ export const fetchRepo = async (repoName: string) => {
   return repo.data as RepositorySchema;
 };
 
-export const fetchRepoContributors = async (repoName: string) => {
+/**
+ * Fetches a repositories contributors.
+ * @param repoName - The name of the repository from which to fetch contributors from. `Required`
+ * @param page - The current page of contributors. Defaults to `1`.
+ * @param perPage - Number of contributors per page. Max is `100`. Defaults to `10`.
+ * @returns `ContributorSchema[]`
+ */
+export const fetchRepoContributors = async (
+  repoName: string,
+  page: number = 1,
+  perPage: number = 10
+) => {
   const response = await fetch(
-    `http://localhost:3000/api/github/repositories/${repoName}/contributors`,
+    `http://localhost:3000/api/github/repositories/${repoName}/contributors?page=${page}&perPage=${perPage}`,
     {
       method: 'GET',
       next: { revalidate: 3600 }, // Revalidates every hour

@@ -1,13 +1,13 @@
-export default class CommitQuery {
+export default class ContributorQuery {
   repoName: string;
   page: number;
   perPage: number;
 
   /**
-   * Creates a new CommitQuery.
+   * Creates a new ContributorQuery.
    * @param repoName - The name of the repository from which to fetch commits from. `Required`
-   * @param page - The current page of commits. Defaults to `1`.
-   * @param perPage - Number of commits per page. Max is `100`. Defaults to `10`.
+   * @param page - The current page of contributors. Defaults to `1`.
+   * @param perPage - Number of contributors per page. Max is `100`. Defaults to `10`.
    */
   constructor(repoName: string, page: number = 1, perPage: number = 10) {
     this.repoName = repoName;
