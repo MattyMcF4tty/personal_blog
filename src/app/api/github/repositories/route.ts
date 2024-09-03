@@ -45,6 +45,7 @@ export async function GET(req: NextRequest) {
       readMe: null,
       stars: repoData.stargazers_count,
       watchers: repoData.watchers_count,
+      topics: repoData.topics,
       owner: {
         id: repoData.owner.login,
         avatar: repoData.owner.avatar_url,

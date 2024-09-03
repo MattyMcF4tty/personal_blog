@@ -19,7 +19,7 @@ const CommitBox = ({ commit }: CommitBoxProps) => {
       className="flex flex-row w-full duration-200 hover:shadow-lg rounded-lg p-2 select-none hover:cursor-pointer"
     >
       <div className="ml-2 h-full w-full flex flex-col justify-center">
-        <h3 className="font-semibold break-words">{commit.title}</h3>
+        <h3 className="break-words">{commit.title}</h3>
         <div className="text-sm text-gray-500">
           {descriptionArray.map((line, index) => (
             <p key={index} className="mb-1">

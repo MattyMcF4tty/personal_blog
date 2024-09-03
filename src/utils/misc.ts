@@ -31,32 +31,24 @@ export const falsePromise = (delay: number) => {
  */
 export const readableDateDif = (date: Date): string => {
   const currentDate = new Date();
+  const timeDiff = currentDate.getTime() - date.getTime(); // Difference in milliseconds
 
-  /* Calculates the difference between different time periods and rounds to lowest number. */
-  const minuteDif = Math.floor(currentDate.getMinutes() - date.getMinutes());
-  const hourDif = Math.floor(currentDate.getHours() - date.getHours());
-  const dayDif = Math.floor(currentDate.getDate() - date.getDate());
-  const monthDif = Math.floor(currentDate.getMonth() - date.getMonth());
-  const yearDif = Math.floor(currentDate.getFullYear() - date.getFullYear());
+  const minuteDiff = Math.floor(timeDiff / (1000 * 60)); // Convert milliseconds to minutes
+  const hourDiff = Math.floor(timeDiff / (1000 * 60 * 60)); // Convert milliseconds to hours
+  const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+  const monthDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 30)); // Approximate month calculation. We approximate the month to be 30 days.
+  const yearDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365)); // Approximate year calculation. We approximate the month to be 365 days.
 
-  /* For debugging
-    console.log(
-      `Dates:\ncurrentDate: ${currentDate}\ndate: ${date}\n\nDate difference:\nminuteDif: ${minuteDif}\nhourDif: ${hourDif}\ndayDif: ${dayDif}\nmonthDif: ${monthDif}\nyearDif: ${yearDif}`
-    );
-  */
-
-  //TODO: Not calculating correctly. Example: If I gives you a date where the day is one day before new month. The next day it will say "One month ago".
-  /* Returns how long has passed in text, except if under one minute ago. Then returns now */
-  if (yearDif >= 1) {
-    return `${yearDif} year${yearDif > 1 ? 's' : ''} ago`;
-  } else if (monthDif >= 1) {
-    return `${monthDif} month${monthDif > 1 ? 's' : ''} ago`;
-  } else if (dayDif >= 1) {
-    return `${dayDif} day${dayDif > 1 ? 's' : ''} ago`;
-  } else if (hourDif >= 1) {
-    return `${hourDif} hour${hourDif > 1 ? 's' : ''} ago`;
-  } else if (minuteDif >= 1) {
-    return `${minuteDif} minute${minuteDif > 1 ? 's' : ''} ago`;
+  if (yearDiff >= 1) {
+    return `${yearDiff} year${yearDiff > 1 ? 's' : ''} ago`;
+  } else if (monthDiff >= 1) {
+    return `${monthDiff} month${monthDiff > 1 ? 's' : ''} ago`;
+  } else if (dayDiff >= 1) {
+    return `${dayDiff} day${dayDiff > 1 ? 's' : ''} ago`;
+  } else if (hourDiff >= 1) {
+    return `${hourDiff} hour${hourDiff > 1 ? 's' : ''} ago`;
+  } else if (minuteDiff >= 1) {
+    return `${minuteDiff} minute${minuteDiff > 1 ? 's' : ''} ago`;
   } else {
     return 'Now';
   }

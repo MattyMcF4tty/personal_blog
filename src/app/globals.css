@@ -6,4 +6,16 @@
   html {
     @apply bg-gray-100;
   }
+
+  h1 {
+    @apply text-5xl font-bold text-gray-900;
+  }
+
+  h2 {
+    @apply text-4xl font-semibold text-gray-800;
+  }
+
+  h3 {
+    @apply font-semibold;
+  }
 }

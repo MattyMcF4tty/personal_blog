@@ -11,4 +11,5 @@ export default interface RepositorySchema {
   stars: number;
   watchers: number;
   owner: userSchema;
+  topics: string[];
 }

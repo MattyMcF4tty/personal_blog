@@ -34,7 +34,7 @@ const RepoPage: NextPage = async ({ params }: any) => {
         {/* Heading */}
         <div className="flex flex-row w-full justify-between">
           <div className="mb-6">
-            <h1 className="text-4xl font-bold mb-2">{repoData.name}</h1>
+            <h1 className="mb-2">{repoData.name}</h1>
             <p className="text-sm text-gray-500">Repository updated {readableDate}</p>
           </div>
           <div className="text-sm text-gray-500 flex flex-row max-w-xs select-none">
@@ -60,7 +60,7 @@ const RepoPage: NextPage = async ({ params }: any) => {
 
       {/* Commits content box */}
       <ContentBox className="col-start-3 col-span-1 max-w-xs top-20 justify-self-end sticky max-h-[calc(100vh-10rem)] overflow-y-auto">
-        <h2 className="text-2xl font-bold mb-2">Commits</h2>
+        <h2 className="mb-2">Commits</h2>
 
         {commits.map((commit) => (
           <div key={commit.sha}>
