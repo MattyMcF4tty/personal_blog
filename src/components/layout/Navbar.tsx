@@ -1,5 +1,5 @@
 // NOT BEING USED, NOT WORKING AS SUPPOSED TO. WILL FIX LATER
-
+/* 
 'use client';
 
 import Image from 'next/image';
@@ -14,7 +14,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
   const [showNavbar, setShowNavbar] = useState(true);
   const router = useRouter();
 
-  /* Handle showing and unshowing of navigation bar */
+  // Handle showing and unshowing of navigation bar
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
@@ -65,3 +65,4 @@ const Navbar: FC<NavbarProps> = ({}) => {
 };
 
 export default Navbar;
+ */

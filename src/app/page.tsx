@@ -11,12 +11,16 @@ const Home: NextPage = async () => {
   return (
     <main>
       <OverviewBox className="flex flex-row justify-between">
-        <div className="flex flex-col h-full justify-between items-center">
+        <div className="flex flex-col h-full justify-between items-start">
           <div className="flex flex-col">
-            <h1 className="">Hi</h1>
-            <h1 className="">I&apos;m Matthias</h1>
+            <h1>Hi I&apos;m</h1>
+            <h1>Matthias Kristensen</h1>
           </div>
-          <Link href="aboutMe" className="">
+          <span className="text-left break-words max-w-xl">
+            This website is deticated to me and my coding projects. Here I&apos;m going to go into
+            depth with my though process when creating.
+          </span>
+          <Link href="aboutMe" className="hover:font-bold duration-150 mx-auto">
             [ About me ]
           </Link>
         </div>

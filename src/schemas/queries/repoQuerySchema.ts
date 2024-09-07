@@ -1,4 +1,11 @@
-export default class RepoQuery {
+export interface RepoQueryProps {
+  page: number;
+  perPage: number;
+  order: 'asc' | 'desc';
+  sort: 'updated' | 'created';
+}
+
+export default class RepoQuery implements RepoQueryProps {
   page: number;
   perPage: number;
   order: 'asc' | 'desc';
