@@ -1,5 +1,6 @@
 'use client';
 
+import ProjectCard from '@/components/ProjectCard';
 import { useRepositories } from '@/hooks/useRepositories';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -16,11 +17,20 @@ const RepoListPage: NextPage = () => {
     console.log(loading);
   }, [loading, error]);
   return (
-    <main>
-      {loading && <p>Loading</p>}
-      {repositories.map((repo) => (
-        <span>{repo.name}</span>
-      ))}
+    <main className="px-32">
+      {/* Control panel */}
+      <div className="h-10 mb-2 bg-blue-300"></div>
+
+      {/* List of projects */}
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <div className="grid grid-cols-4 w-full gap-6">
+          {repositories.map((repo) => (
+            <ProjectCard key={repo.id} project={repo} />
+          ))}
+        </div>
+      )}
     </main>
   );
 };
