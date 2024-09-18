@@ -1,12 +1,12 @@
 import { RepoQueryProps } from '@/schemas/queries/repoQuerySchema';
 import RepositorySchema from '@/schemas/repositorySchema';
-import { fetchUserRepos } from '@/utils/github';
+import { queryRepos } from '@/utils/github';
 import { useCallback, useEffect, useState } from 'react';
 
 /**
  * A hook to handle fetching repositories on client side.
  */
-export const useRepositories = ({ page, perPage, order, sort }: RepoQueryProps) => {
+export const useRepositories = ({ name, page, perPage, order, sort }: RepoQueryProps) => {
   /* Variables users can't change */
   const [repositories, setRepositories] = useState<RepositorySchema[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -16,20 +16,22 @@ export const useRepositories = ({ page, perPage, order, sort }: RepoQueryProps) 
   const [currentPage, setCurrentPage] = useState<number>(page);
   const [currentOrder, setCurrentOrder] = useState<'asc' | 'desc'>(order);
   const [currentSort, setCurrentSort] = useState<'updated' | 'created'>(sort);
+  const [currentName, setCurrentName] = useState<string>(name);
 
   /**
    * Fetches the repositories. Is a useCallback function therefore is only re-created if perPage changes.
    *
+   * @param name The letters the name should contain.
    * @param page The current page to fetch.
    * @param order The current order of the data.
    * @param sort The current way to sort the data.
    */
   const fetchRepos = useCallback(
-    async (page: number, order: 'asc' | 'desc', sort: 'updated' | 'created') => {
+    async (name: string, page: number, order: 'asc' | 'desc', sort: 'updated' | 'created') => {
       setLoading(true);
       setError(null);
       try {
-        const repos = await fetchUserRepos(page, perPage, order, sort);
+        const repos = await queryRepos(name, page, perPage, order, sort);
         setRepositories(repos);
       } catch (error: any) {
         setError(error.message);
@@ -42,9 +44,16 @@ export const useRepositories = ({ page, perPage, order, sort }: RepoQueryProps) 
 
   /* Fetches updated data whenever currentPage, currentOrder or currentSort is changed. */
   useEffect(() => {
-    fetchRepos(currentPage, currentOrder, currentSort);
-  }, [currentPage, currentOrder, currentSort]);
+    fetchRepos(currentName, currentPage, currentOrder, currentSort);
+  }, [currentName, currentPage, currentOrder, currentSort, fetchRepos]);
 
+  /**
+   * Updates what the letters from which to query the names with.
+   * @param newName The new letters to query for names with
+   */
+  const updateName = (newName: string) => {
+    setCurrentName(newName);
+  };
   /**
    * Updates what page to load.
    * @param newPage The new page to fetch
@@ -75,5 +84,6 @@ export const useRepositories = ({ page, perPage, order, sort }: RepoQueryProps) 
     updatePage,
     updateOrder,
     updateSort,
+    updateName,
   };
 };

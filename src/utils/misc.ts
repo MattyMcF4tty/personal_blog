@@ -24,6 +24,7 @@ export const falsePromise = (delay: number) => {
   return promise;
 };
 
+/* TODO: Something is not working. It gets stuck on 10 minutes */
 /**
  * Takes a date and checks it against the current date. To give a reable text version of how much time has passed since. Example: "1 week ago".
  * @param date The date you want to convert to a better readable date. Must be earlier than current date.

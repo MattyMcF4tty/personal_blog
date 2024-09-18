@@ -1,12 +1,12 @@
 import OverviewBox from '@/components/OverviewBox';
 import ProjectBubble from '@/components/ProjectBubble';
-import { fetchUserRepos } from '@/utils/github';
+import { queryRepos } from '@/utils/github';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const Home: NextPage = async () => {
-  const currentProject = (await fetchUserRepos(1, 1, 'desc'))[0];
+  const currentProject = (await queryRepos('', 1, 1, 'desc'))[0];
 
   return (
     <main>

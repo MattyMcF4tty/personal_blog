@@ -18,22 +18,23 @@ export const fetchUserData = async () => {
 };
 
 /**
- * Fetches users repositories.
+ * Querys and fetches users repositories.
  * @param page The current page of repositories. Defaults to 1.
  * @param perPage Number of repositories per page. Max is 100. Defaults to 10.
  * @param order The order of the repositories. Can be 'asc' or 'desc'. Defaults to 'desc'.
- * @param sort - The value to order by. Can be `'updated'`. Defaults to `'updated'`
- * @returns `RepositorySchema[]`
+ * @param sort - The value to order by. Can be `'updated'`, `'forks'` or `'stars'`. Defaults to `'updated'`
+ * @returns `RepositorySchema[]
  */
-export const fetchUserRepos = async (
+export const queryRepos = async (
+  name: string,
   page: number = 1,
   perPage: number = 10,
   order: 'asc' | 'desc' = 'desc',
-  sort: 'updated' | 'created' = 'updated'
+  sort: 'updated' | 'forks' | 'stars' = 'updated'
 ) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/github/repositories?page=${page}&perPage=${perPage}&order=${order}&sort=${sort}`,
+      `http://localhost:3000/api/github/repositories?name=${name}&page=${page}&perPage=${perPage}&order=${order}&sort=${sort}`,
       {
         method: 'GET',
         next: { revalidate: 3600 }, // Revalidate every hour

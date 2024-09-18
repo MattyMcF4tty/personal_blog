@@ -9,14 +9,13 @@ export async function GET(req: NextRequest) {
   const page = parseInt(searchParams.get('page') || '1');
   const perPage = parseInt(searchParams.get('perPage') || '10');
   const order = (searchParams.get('order') as 'asc' | 'desc') || 'desc';
-  const sort = (searchParams.get('sort') as 'updated' | 'created') || 'updated';
+  const sort = (searchParams.get('sort') as 'updated' | 'forks' | 'stars') || 'updated';
+  const name = searchParams.get('name') || '';
 
-  const repoQuery = new RepoQuery(page, perPage, order, sort);
+  const repoQuery = new RepoQuery(name, page, perPage, order, sort);
 
   const response = await fetch(
-    `https://api.github.com/users/${
-      process.env.GITHUB_USERNAME
-    }/repos?${repoQuery.toQueryString()}`,
+    `https://api.github.com/search/repositories?${repoQuery.toQueryString()}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.GITHUB_API_KEY}`,
@@ -34,7 +33,9 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const repositories: RepositorySchema[] = responseData.map((repoData: any) => {
+  const queryData = responseData.items;
+
+  const repositories: RepositorySchema[] = queryData.map((repoData: any) => {
     const repository: RepositorySchema = {
       id: repoData.id,
       name: repoData.name,
