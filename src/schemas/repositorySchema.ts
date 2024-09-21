@@ -10,6 +10,7 @@ export default interface RepositorySchema {
   readMe: string | null;
   stars: number;
   watchers: number;
+  forks: number;
   owner: userSchema;
   topics: string[];
 }

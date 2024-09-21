@@ -1,3 +1,7 @@
+import { ClassValue } from 'class-variance-authority/dist/types';
+import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
 const copyTextToClipboard = (text: string) => {
   navigator.clipboard
     .writeText(text)
@@ -53,4 +57,8 @@ export const readableDateDif = (date: Date): string => {
   } else {
     return 'Now';
   }
+};
+
+export const cn = (...inputs: ClassValue[]) => {
+  return twMerge(clsx(inputs));
 };

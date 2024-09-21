@@ -46,6 +46,7 @@ export async function GET(req: NextRequest) {
       readMe: null,
       stars: repoData.stargazers_count,
       watchers: repoData.watchers_count,
+      forks: repoData.forks_count,
       topics: repoData.topics,
       owner: {
         id: repoData.owner.login,

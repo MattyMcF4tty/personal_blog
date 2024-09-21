@@ -15,7 +15,7 @@ export const useRepositories = ({ name, page, perPage, order, sort }: RepoQueryP
   /* Variables users can change */
   const [currentPage, setCurrentPage] = useState<number>(page);
   const [currentOrder, setCurrentOrder] = useState<'asc' | 'desc'>(order);
-  const [currentSort, setCurrentSort] = useState<'updated' | 'created'>(sort);
+  const [currentSort, setCurrentSort] = useState<'updated' | 'forks' | 'stars'>(sort);
   const [currentName, setCurrentName] = useState<string>(name);
 
   /**
@@ -27,7 +27,12 @@ export const useRepositories = ({ name, page, perPage, order, sort }: RepoQueryP
    * @param sort The current way to sort the data.
    */
   const fetchRepos = useCallback(
-    async (name: string, page: number, order: 'asc' | 'desc', sort: 'updated' | 'created') => {
+    async (
+      name: string,
+      page: number,
+      order: 'asc' | 'desc',
+      sort: 'updated' | 'forks' | 'stars'
+    ) => {
       setLoading(true);
       setError(null);
       try {
@@ -72,12 +77,14 @@ export const useRepositories = ({ name, page, perPage, order, sort }: RepoQueryP
    * Updates the way the data is sorted.
    * @param newSort The new way to sort the data. Can be `updated` or `created`
    */
-  const updateSort = (newSort: 'updated' | 'created') => {
+  const updateSort = (newSort: 'updated' | 'forks' | 'stars') => {
     setCurrentSort(newSort);
   };
 
   return {
     currentPage,
+    currentOrder,
+    currentSort,
     loading,
     error,
     repositories,

@@ -44,7 +44,7 @@ export default class RepoQuery implements RepoQueryProps {
     params.append('page', this.page.toString());
     params.append('per_page', this.perPage.toString());
     params.append('sort', this.sort);
-    params.append('direction', this.order);
+    params.append('order', this.order);
     return `${query}&${params.toString()}`;
   }
 }

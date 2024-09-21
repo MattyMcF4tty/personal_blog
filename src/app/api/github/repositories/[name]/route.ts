@@ -56,6 +56,7 @@ export async function GET(req: NextRequest, { params }: { params: { name: string
     readMe: decodedReadMe,
     stars: repoData.stargazers_count,
     watchers: repoData.watchers_count,
+    forks: repoData.forks_count,
     topics: repoData.topics,
     owner: {
       id: repoData.owner.login,

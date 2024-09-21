@@ -1,5 +1,4 @@
 import OverviewBox from '@/components/OverviewBox';
-import ProjectBubble from '@/components/ProjectBubble';
 import { queryRepos } from '@/utils/github';
 import { NextPage } from 'next';
 import Image from 'next/image';
