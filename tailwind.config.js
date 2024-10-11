@@ -6,7 +6,49 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        textColor: {
+          primary: '#FFFFFF',
+          secondary: '#98959C',
+        },
+        primary: {
+          100: '#7A5AF5',
+          200: '#8C6CF7',
+          300: '#9D7DF9',
+          400: '#AD8FFA',
+          500: '#BCA2FB',
+          600: '#CAB4FD',
+        },
+        secondary: {
+          100: '#1E1E1E',
+          200: '#333333',
+          300: '#494949',
+          400: '#606060',
+          500: '#797979',
+          600: '#929292',
+        },
+        mixed: {
+          100: '#282430',
+          200: '#3C3844',
+          300: '#524E59',
+          400: '#68656E',
+          500: '#807D85',
+          600: '#98959C',
+        },
+      },
+      fontSize: {
+        'header-1': '50px',
+        'header-2': '40px',
+        'header-3': '35px',
+        'header-4': '25px',
+        body: '20px',
+        interractive: '18px',
+      },
+      dropShadow: {
+        default: '0 4px 10px rgba(0, 0, 0, 0.25)',
+      },
+    },
   },
   plugins: [],
 };

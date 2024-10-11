@@ -4,18 +4,34 @@
 
 @layer base {
   html {
-    @apply bg-gray-100;
+    @apply bg-secondary-100;
   }
 
   h1 {
-    @apply text-5xl font-bold text-gray-900;
+    @apply text-header-1 font-semibold text-textColor-primary;
   }
 
   h2 {
-    @apply text-4xl font-semibold text-gray-800;
+    @apply text-header-2 font-medium text-textColor-primary;
   }
 
   h3 {
-    @apply font-semibold;
+    @apply text-header-3 font-medium text-textColor-primary;
+  }
+
+  h4 {
+    @apply text-header-4 font-medium text-textColor-primary;
+  }
+
+  span {
+    @apply text-body font-normal text-textColor-primary;
+  }
+
+  button {
+    @apply text-interractive font-normal text-textColor-primary;
+  }
+
+  button :hover {
+    @apply text-interractive font-medium text-textColor-primary;
   }
 }
