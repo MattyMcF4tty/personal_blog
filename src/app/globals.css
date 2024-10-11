@@ -1,10 +1,46 @@
+@import '../styles/border-tech.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary-400: theme('colors.primary.400');
+  --color-primary-500: theme('colors.primary.500');
+  --duration-fast: theme('transitionDuration.fast');
+}
+
 @layer base {
+  @font-face {
+    font-family: 'Geist';
+    src: url('/fonts/Geist/Geist-Regular.woff2') format('woff2'),
+      url('/fonts/Geist/Geist-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Geist';
+    src: url('/fonts/Geist/Geist-Medium.woff2') format('woff2'),
+      url('/fonts/Geist/Geist-Medium.woff') format('woff');
+    font-weight: 500; /* Medium is often considered 500 */
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Geist';
+    src: url('/fonts/Geist/Geist-SemiBold.woff2') format('woff2'),
+      url('/fonts/Geist/Geist-SemiBold.woff') format('woff');
+    font-weight: 600; /* SemiBold is often considered 600 */
+    font-style: normal;
+  }
+
   html {
     @apply bg-secondary-100;
+  }
+
+  body {
+    font-family: 'Geist', Arial, sans-serif;
+    @apply px-[10rem];
   }
 
   h1 {
@@ -27,11 +63,13 @@
     @apply text-body font-normal text-textColor-primary;
   }
 
-  button {
+  button,
+  a {
     @apply text-interractive font-normal text-textColor-primary;
   }
 
-  button :hover {
+  button:hover,
+  a:hover {
     @apply text-interractive font-medium text-textColor-primary;
   }
 }

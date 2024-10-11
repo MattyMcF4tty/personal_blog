@@ -38,15 +38,20 @@ module.exports = {
         },
       },
       fontSize: {
-        'header-1': '50px',
-        'header-2': '40px',
-        'header-3': '35px',
-        'header-4': '25px',
-        body: '20px',
-        interractive: '18px',
+        'header-1': '3.125rem', // 50px
+        'header-2': '2.5rem', // 40px
+        'header-3': '2.1875rem', // 35px
+        'header-4': '1.5625rem', // 25px
+        body: '1.25rem', // 20px
+        interractive: '1.125rem', // 18px
       },
       dropShadow: {
         default: '0 4px 10px rgba(0, 0, 0, 0.25)',
+      },
+      transitionDuration: {
+        regular: '250ms',
+        slow: '350ms',
+        fast: '150ms',
       },
     },
   },
