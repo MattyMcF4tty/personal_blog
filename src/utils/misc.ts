@@ -1,5 +1,8 @@
+import { PostgrestError } from '@supabase/supabase-js';
 import { ClassValue } from 'class-variance-authority/dist/types';
 import clsx from 'clsx';
+import { NextResponse } from 'next/server';
+import { json } from 'stream/consumers';
 import { twMerge } from 'tailwind-merge';
 
 const copyTextToClipboard = (text: string) => {
@@ -61,4 +64,32 @@ export const readableDateDif = (date: Date): string => {
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
+};
+
+/**
+ * Takes a PostgrestError error and returns the correct reponse. Keeping potential confidential information from the client.
+ * @param error Supabase PostgrestError error.
+ * @returns NextResponse
+ */
+export const handlePostgreSQLError = (error: PostgrestError) => {
+  var message = 'An unexpected error occurred';
+  var httpCode = 500;
+  switch (error.code) {
+    case '42703':
+      httpCode = 404;
+      message = 'Column does not exist';
+      console.warn('Invalid column:', error);
+      break;
+    case '42P01':
+      httpCode = 404;
+      message = 'Table does not exist';
+      console.warn('Inavlid table:', error);
+    default:
+      httpCode = 500;
+      message = 'An unexpected error occurred';
+      console.error('Unexpected PostgrestError:', error);
+      break;
+  }
+
+  return NextResponse.json({ error: message }, { status: httpCode });
 };
