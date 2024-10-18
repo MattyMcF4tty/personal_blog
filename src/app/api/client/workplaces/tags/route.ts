@@ -1,5 +1,5 @@
 import { handlePostgreSQLError } from '@/utils/misc';
-import { fetchUniqueTags } from '@/utils/supabase';
+import { fetchUniqueTags } from '@/utils/database/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {

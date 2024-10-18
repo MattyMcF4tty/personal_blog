@@ -1,5 +1,5 @@
 import { handlePostgreSQLError } from '@/utils/misc';
-import { createSupabaseClient } from '@/utils/supabase';
+import { createSupabaseClient } from '@/utils/database/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ data: data }, { status: 200 });
   } catch (error: any) {
     // Catch internal errors, log and return nondescript error for client
-    console.error(`Server error: ${error}`);
+    console.error(`An unexpected error occurred: ${error}`);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
