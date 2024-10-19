@@ -2,6 +2,19 @@ import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextRequest, NextResponse } from 'next/server';
 
+// TODO: Add states to this route.
+
+/**
+ * @param name The name of the projects you are searching for
+ * @param perpage The number of projects you want to fetch. Default is `10`, max is `100`
+ * @param tags The tags the projects should have
+ * @param sort The variable to sort after. Must be `name`, `watchers`, `updated`. Default is `updated`.
+ * @param ascending Wether the projects should ascending or descending based of the sort value. Is boolean, default is `true`
+ * @param pageCursor The cusor of the page you want to fetch.
+ * @param languages The tags the projects should use
+ *
+ * @returns project or error
+ */
 export async function GET(req: NextRequest) {
   try {
     // Get query parameters from request
@@ -12,7 +25,7 @@ export async function GET(req: NextRequest) {
     const ascending = searchParams.get('ascending') !== 'false';
     const sort = searchParams.get('sort') || 'updated';
     const perPage = Math.min(100, Math.max(1, Number(searchParams.get('perpage')) || 10));
-    const pageCursor = searchParams.get('page'); // Not a number, has to be provided cursor
+    const pageCursor = searchParams.get('pageCursor'); // Not a number, has to be provided cursor
 
     // Create Octokit client
     const octoClient = createOctokitClient();

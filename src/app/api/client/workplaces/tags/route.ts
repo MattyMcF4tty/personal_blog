@@ -2,6 +2,7 @@ import { handlePostgreSQLError } from '@/utils/misc';
 import { fetchUniqueTags } from '@/utils/database/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
+// This api route fetches all unique tags from all workplaces
 export async function GET(req: NextRequest) {
   const { tags, error } = await fetchUniqueTags('workplaces');
 
