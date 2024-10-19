@@ -1,3 +1,4 @@
+import { GraphQlQueryResponseData, GraphqlResponseError } from '@octokit/graphql';
 import { PostgrestError } from '@supabase/supabase-js';
 import { ClassValue } from 'class-variance-authority/dist/types';
 import clsx from 'clsx';
@@ -72,8 +73,8 @@ export const cn = (...inputs: ClassValue[]) => {
  * @returns NextResponse
  */
 export const handlePostgreSQLError = (error: PostgrestError) => {
-  var message = 'An unexpected error occurred';
-  var httpCode = 500;
+  let message = 'An unexpected error occurred';
+  let httpCode = 500;
   switch (error.code) {
     case '42703':
       httpCode = 404;
@@ -89,6 +90,34 @@ export const handlePostgreSQLError = (error: PostgrestError) => {
       message = 'An unexpected error occurred';
       console.error('Unexpected PostgrestError:', error);
       break;
+  }
+
+  return NextResponse.json({ error: message }, { status: httpCode });
+};
+
+export const handleGraphQLReponseError = (
+  error: GraphqlResponseError<GraphQlQueryResponseData>
+) => {
+  let message = 'An unexpected error occurred';
+  let httpCode = 500;
+
+  if (error.errors && error.errors.length > 0) {
+    const firstError = error.errors[0];
+
+    switch (firstError.type) {
+      case 'INVALID_CURSOR_ARGUMENTS':
+        const cursorMatch = firstError.message.match(/`([^`]+)`/);
+        const cursor = cursorMatch ? cursorMatch[1] : '';
+
+        message = `${cursor} is not a valid cursor`;
+        httpCode = 400;
+        break;
+      default:
+        message = 'An unexpected error occurred';
+        httpCode = 500;
+        console.error('Unexpected GraphQLReponseError:', firstError);
+        break;
+    }
   }
 
   return NextResponse.json({ error: message }, { status: httpCode });
