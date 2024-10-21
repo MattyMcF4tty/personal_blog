@@ -1,8 +1,9 @@
+import { ProjectSchema } from '@/schemas/new Schemas/projectSchema';
 import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextRequest, NextResponse } from 'next/server';
 
-// TODO: Add states to this route.
+// TODO: Add types to this route.
 
 /**
  * @param name The name of the projects you are searching for
@@ -10,8 +11,8 @@ import { NextRequest, NextResponse } from 'next/server';
  * @param tags The tags the projects should have
  * @param sort The variable to sort after. Must be `name`, `watchers`, `updated`. Default is `updated`.
  * @param ascending Wether the projects should ascending or descending based of the sort value. Is boolean, default is `true`
- * @param pageCursor The cusor of the page you want to fetch.
- * @param languages The tags the projects should use
+ * @param pagecursor The cusor of the page you want to fetch.
+ * @param languages The languages the projects should use
  *
  * @returns project or error
  */
@@ -25,7 +26,7 @@ export async function GET(req: NextRequest) {
     const ascending = searchParams.get('ascending') !== 'false';
     const sort = searchParams.get('sort') || 'updated';
     const perPage = Math.min(100, Math.max(1, Number(searchParams.get('perpage')) || 10));
-    const pageCursor = searchParams.get('pageCursor'); // Not a number, has to be provided cursor
+    const pageCursor = searchParams.get('pagecursor'); // Not a number, has to be provided cursor
 
     // Create Octokit client
     const octoClient = createOctokitClient();
@@ -66,22 +67,28 @@ export async function GET(req: NextRequest) {
                 id
                 url
                 description
-                watchers {
+                watchers (first: 0) {
                   totalCount
+                  users: edges {
+                    user: node {
+                      name
+                      avatarUrl
+                      url
+                    }
+                  }
                 }
                 updatedAt
-                repositoryTopics (first: 10) {
+                repositoryTopics (first: 0) {
+                  totalCount
                   topics: nodes {
                     topic {
                       name
                     }
                   }
                 }
-                languages (first: 10) {
-                  edges {
-                    node {
-                      name
-                    }
+                languages (first: 0) {
+                  languages: nodes {
+                    name
                   }
                 }
               }
@@ -106,7 +113,8 @@ export async function GET(req: NextRequest) {
         cursor: pageCursor,
       });
     } catch (error: any) {
-      return handleGraphQLReponseError(error);
+      const { errorMessage, status } = handleGraphQLReponseError(error);
+      return NextResponse.json({ error: errorMessage }, { status: status });
     }
 
     // Format the data to be easily readable
@@ -117,10 +125,16 @@ export async function GET(req: NextRequest) {
           name: repo.repo.name,
           url: repo.repo.url,
           description: repo.repo.description,
-          watchers: repo.repo.watchers.totalCount,
           updated: repo.repo.updatedAt,
-          tags: repo.repo.repositoryTopics.topics.map((topic) => topic.topic.name),
-          languages: repo.repo.languages.edges.map((lang) => lang.node.name),
+          watchers: {
+            totalCount: repo.repo.watchers.totalCount,
+            users: repo.repo.watchers.users,
+          },
+          tags: {
+            totalCount: repo.repo.repositoryTopics.totalCount,
+            tags: repo.repo.repositoryTopics.topics.map((topic) => topic.topic.name),
+          },
+          languages: repo.repo.languages.languages.map((lang) => lang.name),
         };
       }),
       nextPage: queryData.search.pageInfo.hasNextPage ? queryData.search.pageInfo.endCursor : null,

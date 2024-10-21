@@ -2,7 +2,7 @@ import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextResponse } from 'next/server';
 
-// TODO: Add states to this route.
+// TODO: Add types to this route.
 // TODO: Reduce time
 
 // This api route fetches all tags from all repositories and sorts out all the ones that are not unique
@@ -61,7 +61,8 @@ export async function GET() {
           cursor: repoCursor,
         });
       } catch (error: any) {
-        return handleGraphQLReponseError(error);
+        const { errorMessage, status } = handleGraphQLReponseError(error);
+        return NextResponse.json({ error: errorMessage }, { status: status });
       }
 
       // Loop through repositories and get there their topics
@@ -105,7 +106,8 @@ export async function GET() {
               topicCursor: topicCursor,
             });
           } catch (error: any) {
-            return handleGraphQLReponseError(error);
+            const { errorMessage, status } = handleGraphQLReponseError(error);
+            return NextResponse.json({ error: errorMessage }, { status: status });
           }
 
           // Add topics to topicSet

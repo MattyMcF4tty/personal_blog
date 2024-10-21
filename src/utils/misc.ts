@@ -112,6 +112,10 @@ export const handleGraphQLReponseError = (
         message = `${cursor} is not a valid cursor`;
         httpCode = 400;
         break;
+      case 'NOT_FOUND':
+        message = 'Not found';
+        httpCode = 404;
+        break;
       default:
         message = 'An unexpected error occurred';
         httpCode = 500;
@@ -120,5 +124,5 @@ export const handleGraphQLReponseError = (
     }
   }
 
-  return NextResponse.json({ error: message }, { status: httpCode });
+  return { errorMessage: message, status: httpCode };
 };
