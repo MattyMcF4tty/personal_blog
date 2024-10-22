@@ -1,3 +1,6 @@
+import { Collaborators } from '@/schemas/new Schemas/collaboratorsSchema';
+import repositoryGraphQL from '@/schemas/new Schemas/graphQL/repositoryGraphQL';
+import { PagedProjectsSchema } from '@/schemas/new Schemas/pagedProjectsSchema';
 import { ProjectSchema } from '@/schemas/new Schemas/projectSchema';
 import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
@@ -60,37 +63,11 @@ export async function GET(req: NextRequest) {
     const query = `
       query searchRepos($queryString: String! $perPage: Int!, $cursor: String) {
         search (query:$queryString, type:REPOSITORY, first:$perPage, after:$cursor) {
+          repositoryCount
           repos: edges {
             repo: node {
               ... on Repository {
-                name
-                id
-                url
-                description
-                watchers (first: 0) {
-                  totalCount
-                  users: edges {
-                    user: node {
-                      name
-                      avatarUrl
-                      url
-                    }
-                  }
-                }
-                updatedAt
-                repositoryTopics (first: 0) {
-                  totalCount
-                  topics: nodes {
-                    topic {
-                      name
-                    }
-                  }
-                }
-                languages (first: 0) {
-                  languages: nodes {
-                    name
-                  }
-                }
+                ${repositoryGraphQL}
               }
             }
           }
@@ -118,33 +95,46 @@ export async function GET(req: NextRequest) {
     }
 
     // Format the data to be easily readable
-    const repoData = {
-      repos: queryData.search.repos.map((repo) => {
+    const projectsData: PagedProjectsSchema = {
+      totalCount: queryData.search.repositoryCount,
+      projects: queryData.search.repos.map((repo): ProjectSchema => {
         return {
           id: repo.repo.id,
           name: repo.repo.name,
           url: repo.repo.url,
           description: repo.repo.description,
-          updated: repo.repo.updatedAt,
+          createdAt: repo.repo.createdAt,
+          updatedAt: repo.repo.updatedAt,
           watchers: {
             totalCount: repo.repo.watchers.totalCount,
-            users: repo.repo.watchers.users,
+            users: repo.repo.watchers.users.map((user) => user.user),
+            pageInfo: repo.repo.watchers.pageInfo,
+          },
+          collaborators: {
+            totalCount: repo.repo.collaborators.totalCount,
+            users: repo.repo.collaborators.users.map((user) => user.user),
+            pageInfo: repo.repo.collaborators.pageInfo,
           },
           tags: {
             totalCount: repo.repo.repositoryTopics.totalCount,
-            tags: repo.repo.repositoryTopics.topics.map((topic) => topic.topic.name),
+            tags: repo.repo.repositoryTopics.topics.map((topic) => topic.node.topic.name),
+            pageInfo: repo.repo.repositoryTopics.pageInfo,
           },
           languages: repo.repo.languages.languages.map((lang) => lang.name),
+          commits: {
+            totalCount: repo.repo.defaultBranchRef.target.history.totalCount,
+            commits: repo.repo.defaultBranchRef.target.history.commits.map(
+              (commit) => commit.commit
+            ),
+            pageInfo: repo.repo.defaultBranchRef.target.history.pageInfo,
+          },
         };
       }),
-      nextPage: queryData.search.pageInfo.hasNextPage ? queryData.search.pageInfo.endCursor : null,
-      previousPage: queryData.search.pageInfo.hasPreviousPage
-        ? queryData.search.pageInfo.startCursor
-        : null,
+      pageInfo: queryData.search.pageInfo,
     };
 
     //Return the data
-    return NextResponse.json({ data: repoData }, { status: 200 });
+    return NextResponse.json({ data: projectsData }, { status: 200 });
   } catch (error: any) {
     // Catch internal errors, log and return nondescript error for client
     console.error(`An unexpected error occurred: ${error}`);

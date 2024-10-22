@@ -1,23 +1,23 @@
 export interface UserSchema {
-  name: string;
+  login: string;
   avatarUrl: string;
   url: string;
 }
 
 export class User implements UserSchema {
-  name: string;
+  login: string;
   avatarUrl: string;
   url: string;
 
   constructor(user: UserSchema) {
-    this.name = user.name;
+    this.login = user.login;
     this.avatarUrl = user.avatarUrl;
     this.url = user.url;
   }
 
   toPlainObject(): UserSchema {
     return {
-      name: this.name,
+      login: this.login,
       avatarUrl: this.avatarUrl,
       url: this.url,
     };

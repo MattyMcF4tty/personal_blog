@@ -1,6 +1,8 @@
+import { Collaborators, CollaboratorsSchema } from './collaboratorsSchema';
 import { Languages, LanguagesSchema } from './languagesSchema';
+import { PagedCommits, PagedCommitsSchema } from './pagedCommitsSchema';
+import { PagedWatchers, PagedWatchersSchema } from './pagedWatchersSchema';
 import { Tags, TagsSchema } from './tagsSchema';
-import { Watchers, WatchersSchema } from './watchersSchema';
 
 export interface ProjectSchema {
   id: string;
@@ -9,9 +11,11 @@ export interface ProjectSchema {
   description: string;
   createdAt: string;
   updatedAt: string;
-  watchers: WatchersSchema;
+  watchers: PagedWatchersSchema;
+  collaborators: CollaboratorsSchema;
   tags: TagsSchema;
   languages: LanguagesSchema;
+  commits: PagedCommitsSchema;
 }
 
 export class Project implements ProjectSchema {
@@ -21,9 +25,11 @@ export class Project implements ProjectSchema {
   description: string;
   createdAt: string;
   updatedAt: string;
-  watchers: Watchers;
+  watchers: PagedWatchers;
+  collaborators: Collaborators;
   tags: Tags;
   languages: Languages;
+  commits: PagedCommits;
 
   constructor(project: ProjectSchema) {
     this.id = project.id;
@@ -32,9 +38,11 @@ export class Project implements ProjectSchema {
     this.description = project.description;
     this.createdAt = project.createdAt;
     this.updatedAt = project.updatedAt;
-    this.watchers = new Watchers(project.watchers);
+    this.watchers = new PagedWatchers(project.watchers);
+    this.collaborators = new Collaborators(project.collaborators);
     this.tags = new Tags(project.tags);
     this.languages = new Languages(project.languages);
+    this.commits = new PagedCommits(project.commits);
   }
 
   toPlainObject(): ProjectSchema {
@@ -46,8 +54,10 @@ export class Project implements ProjectSchema {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       watchers: this.watchers.toPlainObject(),
+      collaborators: this.collaborators.toPlainObject(),
       tags: this.tags.toPlainObject(),
       languages: this.languages.toPlainObject(),
+      commits: this.commits.toPlainObject(),
     };
   }
 }
