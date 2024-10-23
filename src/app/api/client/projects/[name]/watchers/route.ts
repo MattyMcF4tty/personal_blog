@@ -1,4 +1,4 @@
-import { PagedWatchersSchema } from '@/schemas/new Schemas/pagedWatchersSchema';
+import { PagedWatchersSchema } from '@/schemas/pagedWatchersSchema';
 import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextRequest, NextResponse } from 'next/server';

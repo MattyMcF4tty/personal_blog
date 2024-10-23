@@ -1,4 +1,4 @@
-import userSchema from '../userSchema';
+import userSchema from './userSchema';
 import { PageInfoSchema } from './pageInfoSchema';
 import { User, UserSchema } from './userSchema';
 

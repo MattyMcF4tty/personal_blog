@@ -1,7 +1,7 @@
-import { Collaborators } from '@/schemas/new Schemas/collaboratorsSchema';
-import repositoryGraphQL from '@/schemas/new Schemas/graphQL/repositoryGraphQL';
-import { PagedProjectsSchema } from '@/schemas/new Schemas/pagedProjectsSchema';
-import { ProjectSchema } from '@/schemas/new Schemas/projectSchema';
+import { Collaborators } from '@/schemas/collaboratorsSchema';
+import repositoryGraphQL from '@/schemas/graphQL/repositoryGraphQL';
+import { PagedProjectsSchema } from '@/schemas/pagedProjectsSchema';
+import { ProjectSchema } from '@/schemas/projectSchema';
 import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextRequest, NextResponse } from 'next/server';

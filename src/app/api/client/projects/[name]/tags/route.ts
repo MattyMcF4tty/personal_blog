@@ -1,4 +1,4 @@
-import { TagsSchema } from '@/schemas/new Schemas/tagsSchema';
+import { TagsSchema } from '@/schemas/tagsSchema';
 import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextRequest, NextResponse } from 'next/server';

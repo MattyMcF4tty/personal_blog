@@ -1,4 +1,4 @@
-import { CollaboratorsSchema } from '@/schemas/new Schemas/collaboratorsSchema';
+import { CollaboratorsSchema } from '@/schemas/collaboratorsSchema';
 import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextRequest, NextResponse } from 'next/server';

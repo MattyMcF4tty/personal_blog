@@ -1,5 +1,5 @@
-import repositoryGraphQL from '@/schemas/new Schemas/graphQL/repositoryGraphQL';
-import { ProjectSchema } from '@/schemas/new Schemas/projectSchema';
+import repositoryGraphQL from '@/schemas/graphQL/repositoryGraphQL';
+import { ProjectSchema } from '@/schemas/projectSchema';
 import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextResponse } from 'next/server';

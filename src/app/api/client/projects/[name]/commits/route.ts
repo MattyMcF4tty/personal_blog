@@ -1,5 +1,5 @@
-import { CollaboratorsSchema } from '@/schemas/new Schemas/collaboratorsSchema';
-import { PagedCommitsSchema } from '@/schemas/new Schemas/pagedCommitsSchema';
+import { CollaboratorsSchema } from '@/schemas/collaboratorsSchema';
+import { PagedCommitsSchema } from '@/schemas/pagedCommitsSchema';
 import { createOctokitClient } from '@/utils/database/github';
 import { handleGraphQLReponseError } from '@/utils/misc';
 import { NextRequest, NextResponse } from 'next/server';
